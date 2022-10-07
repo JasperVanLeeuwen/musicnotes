@@ -43,8 +43,10 @@ class Guitar:
         return self
 
     def show(self):
-        min_fret = min([min(frets) for frets in [ string.frets for string in self.strings.strings.values()]])
-        max_fret = max([max(frets) for frets in [ string.frets for string in self.strings.strings.values()]])
+        the_frets = [string.frets for string in self.strings.strings.values() if len(string.frets)>0]
+        min_fret = min([min(frets) for frets in the_frets])-1
+        min_fret = max([0,min_fret])
+        max_fret = max([max(frets) for frets in the_frets])+1
         fb = fretboard.Fretboard(frets=(min_fret, max_fret), style={'marker': {'color': 'dodgerblue'}})
 
         for string_nr in range(1,7):
